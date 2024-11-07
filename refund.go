@@ -10,5 +10,6 @@ type RefundParams struct {
 	FinalCustomerName         string `json:"final_customer_name"`
 	RefundMethod              string `json:"refund_method"`
 	FeesIncluded              bool   `json:"fees_included"`
+	DebitPolicy               string `json:"debit_policy"`
 	FinalCustomerNameAccuracy string `json:"final_customer_name_accuracy"`
 }

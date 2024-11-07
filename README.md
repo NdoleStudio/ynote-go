@@ -1,4 +1,4 @@
-# Y-Note Go Client
+# ynote-go
 
 [![Build](https://github.com/NdoleStudio/ynote-go/actions/workflows/main.yml/badge.svg)](https://github.com/NdoleStudio/ynote-go/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/NdoleStudio/ynote-go/branch/main/graph/badge.svg)](https://codecov.io/gh/NdoleStudio/ynote-go)
@@ -29,10 +29,10 @@ import "github.com/NdoleStudio/ynote-go"
 ## Implemented
 
 - **Token**
-  - `POST {baseURL}/token`: Get Access Token
+  - `POST /oauth2/token`: Get Access Token
 - **Refund**
-  - `POST {baseURL}/prod/refund`: Generate pay token.
-  - `GET {baseURL}/prod/refund/status/{transactionID}`: Get the status of a refund transaction
+  - `POST /prod/refund`: Refund a transaction
+  - `GET /prod/refund/status/{transactionID}`: Get the status of a refund transaction
 
 ## Usage
 
