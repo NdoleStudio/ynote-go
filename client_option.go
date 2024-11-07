@@ -1,4 +1,4 @@
-package client
+package ynote
 
 import (
 	"net/http"
@@ -26,21 +26,48 @@ func WithHTTPClient(httpClient *http.Client) Option {
 	})
 }
 
-// WithBaseURL set's the base url for the flutterwave API
-func WithBaseURL(baseURL string) Option {
+// WithTokenURL set's the token URL for the Y-Note API
+func WithTokenURL(tokenURL string) Option {
 	return clientOptionFunc(func(config *clientConfig) {
-		if baseURL != "" {
-			config.baseURL = strings.TrimRight(baseURL, "/")
+		if tokenURL != "" {
+			config.tokenURL = strings.TrimRight(tokenURL, "/")
 		}
 	})
 }
 
-// WithDelay sets the delay in milliseconds before a response is gotten.
-// The delay must be > 0 for it to be used.
-func WithDelay(delay int) Option {
+// WithApiURL set's the api URL for the Y-Note API
+func WithApiURL(apiURL string) Option {
 	return clientOptionFunc(func(config *clientConfig) {
-		if delay > 0 {
-			config.delay = delay
+		if apiURL != "" {
+			config.apiURL = strings.TrimRight(apiURL, "/")
 		}
+	})
+}
+
+// WithUsername sets the Y-Note API Username used to fetch the access token
+func WithUsername(username string) Option {
+	return clientOptionFunc(func(config *clientConfig) {
+		config.username = username
+	})
+}
+
+// WithPassword sets the Y-Note API password used to fetch the access token
+func WithPassword(password string) Option {
+	return clientOptionFunc(func(config *clientConfig) {
+		config.password = password
+	})
+}
+
+// WithCustomerKey sets the customer key used to make API requests
+func WithCustomerKey(customerKey string) Option {
+	return clientOptionFunc(func(config *clientConfig) {
+		config.customerKey = customerKey
+	})
+}
+
+// WithCustomerSecret sets the customer secret used to make API requests
+func WithCustomerSecret(customerSecret string) Option {
+	return clientOptionFunc(func(config *clientConfig) {
+		config.customerSecret = customerSecret
 	})
 }

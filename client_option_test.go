@@ -1,4 +1,4 @@
-package client
+package ynote
 
 import (
 	"net/http"
@@ -39,66 +39,102 @@ func TestWithHTTPClient(t *testing.T) {
 	})
 }
 
-func TestWithBaseURL(t *testing.T) {
-	t.Run("baseURL is set successfully", func(t *testing.T) {
+func TestWithApiURL(t *testing.T) {
+	t.Run("apiURL is set successfully", func(t *testing.T) {
 		// Setup
 		t.Parallel()
 
 		// Arrange
-		baseURL := "https://example.com"
+		apiURL := "https://example.com"
 		config := defaultClientConfig()
 
 		// Act
-		WithBaseURL(baseURL).apply(config)
+		WithApiURL(apiURL).apply(config)
 
 		// Assert
-		assert.Equal(t, config.baseURL, config.baseURL)
+		assert.Equal(t, apiURL, config.apiURL)
 	})
 
-	t.Run("tailing / is trimmed from baseURL", func(t *testing.T) {
+	t.Run("tailing / is trimmed from apiURL", func(t *testing.T) {
 		// Setup
 		t.Parallel()
 
 		// Arrange
-		baseURL := "https://example.com/"
+		apiURL := "https://example.com/"
 		config := defaultClientConfig()
 
 		// Act
-		WithBaseURL(baseURL).apply(config)
+		WithApiURL(apiURL).apply(config)
 
 		// Assert
-		assert.Equal(t, "https://example.com", config.baseURL)
+		assert.Equal(t, "https://example.com", config.apiURL)
 	})
 }
 
-func TestWithDelay(t *testing.T) {
-	t.Run("delay is set successfully", func(t *testing.T) {
+func TestWithUsername(t *testing.T) {
+	t.Run("username is set successfully", func(t *testing.T) {
 		// Setup
 		t.Parallel()
 
 		// Arrange
+		username := "username-1"
 		config := defaultClientConfig()
-		delay := 1
 
 		// Act
-		WithDelay(delay).apply(config)
+		WithUsername(username).apply(config)
 
 		// Assert
-		assert.Equal(t, delay, config.delay)
+		assert.Equal(t, username, config.username)
 	})
+}
 
-	t.Run("delay is not set when value < 0", func(t *testing.T) {
+func TestWithPassword(t *testing.T) {
+	t.Run("password is set successfully", func(t *testing.T) {
 		// Setup
 		t.Parallel()
 
 		// Arrange
+		password := "password-1"
 		config := defaultClientConfig()
-		delay := -1
 
 		// Act
-		WithDelay(delay).apply(config)
+		WithPassword(password).apply(config)
 
 		// Assert
-		assert.Equal(t, 0, config.delay)
+		assert.Equal(t, password, config.password)
+	})
+}
+
+func TestWithCustomerKey(t *testing.T) {
+	t.Run("customerKey is set successfully", func(t *testing.T) {
+		// Setup
+		t.Parallel()
+
+		// Arrange
+		customerKey := "key-1"
+		config := defaultClientConfig()
+
+		// Act
+		WithCustomerKey(customerKey).apply(config)
+
+		// Assert
+		assert.Equal(t, customerKey, config.customerKey)
+	})
+}
+
+func TestWith(t *testing.T) {
+	t.Run("customerSecret is set successfully", func(t *testing.T) {
+		// Setup
+		t.Parallel()
+
+		// Arrange
+		customerSecret := "secret-1"
+		config := defaultClientConfig()
+
+		// Act
+		WithCustomerSecret(customerSecret).apply(config)
+
+		// Assert
+		assert.Equal(t, customerSecret, config.customerSecret)
 	})
 }

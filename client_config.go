@@ -1,17 +1,21 @@
-package client
+package ynote
 
 import "net/http"
 
 type clientConfig struct {
-	httpClient *http.Client
-	delay      int
-	baseURL    string
+	httpClient     *http.Client
+	customerKey    string
+	customerSecret string
+	username       string
+	password       string
+	tokenURL       string
+	apiURL         string
 }
 
 func defaultClientConfig() *clientConfig {
 	return &clientConfig{
 		httpClient: http.DefaultClient,
-		delay:      0,
-		baseURL:    "https://httpstat.us",
+		tokenURL:   "https://omapi-token.ynote.africa",
+		apiURL:     "https://omapi.ynote.africa",
 	}
 }

@@ -1,35 +1,38 @@
-# go-http-client
+# Y-Note Go Client
 
-[![Build](https://github.com/NdoleStudio/go-http-client/actions/workflows/main.yml/badge.svg)](https://github.com/NdoleStudio/go-http-client/actions/workflows/main.yml)
-[![codecov](https://codecov.io/gh/NdoleStudio/go-http-client/branch/main/graph/badge.svg)](https://codecov.io/gh/NdoleStudio/go-http-client)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/NdoleStudio/go-http-client/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/NdoleStudio/go-http-client/?branch=main)
-[![Go Report Card](https://goreportcard.com/badge/github.com/NdoleStudio/go-http-client)](https://goreportcard.com/report/github.com/NdoleStudio/go-http-client)
-[![GitHub contributors](https://img.shields.io/github/contributors/NdoleStudio/go-http-client)](https://github.com/NdoleStudio/go-http-client/graphs/contributors)
-[![GitHub license](https://img.shields.io/github/license/NdoleStudio/go-http-client?color=brightgreen)](https://github.com/NdoleStudio/go-http-client/blob/master/LICENSE)
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/NdoleStudio/go-http-client)](https://pkg.go.dev/github.com/NdoleStudio/go-http-client)
+[![Build](https://github.com/NdoleStudio/ynote-go/actions/workflows/main.yml/badge.svg)](https://github.com/NdoleStudio/ynote-go/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/NdoleStudio/ynote-go/branch/main/graph/badge.svg)](https://codecov.io/gh/NdoleStudio/ynote-go)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/NdoleStudio/ynote-go/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/NdoleStudio/ynote-go/?branch=main)
+[![Go Report Card](https://goreportcard.com/badge/github.com/NdoleStudio/ynote-go)](https://goreportcard.com/report/github.com/NdoleStudio/ynote-go)
+[![GitHub contributors](https://img.shields.io/github/contributors/NdoleStudio/ynote-go)](https://github.com/NdoleStudio/ynote-go/graphs/contributors)
+[![GitHub license](https://img.shields.io/github/license/NdoleStudio/ynote-go?color=brightgreen)](https://github.com/NdoleStudio/ynote-go/blob/master/LICENSE)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/NdoleStudio/ynote-go)](https://pkg.go.dev/github.com/NdoleStudio/ynote-go)
 
 
-This package provides a generic `go` client template for an HTTP API
+This package provides a generic `go` client for the Y-Note API
 
 ## Installation
 
-`go-http-client` is compatible with modern Go releases in module mode, with Go installed:
+`ynote-go` is compatible with modern Go releases in module mode, with Go installed:
 
 ```bash
-go get github.com/NdoleStudio/go-http-client
+go get github.com/NdoleStudio/ynote-go
 ```
 
 Alternatively the same can be achieved if you use `import` in a package:
 
 ```go
-import "github.com/NdoleStudio/go-http-client"
+import "github.com/NdoleStudio/ynote-go"
 ```
 
 
 ## Implemented
 
-- [Status Codes](#status-codes)
-    - `GET /200`: OK
+- **Token**
+  - `POST {baseURL}/token`: Get Access Token
+- **Refund**
+  - `POST {baseURL}/prod/refund`: Generate pay token.
+  - `GET {baseURL}/prod/refund/status/{transactionID}`: Get the status of a refund transaction
 
 ## Usage
 
@@ -41,11 +44,14 @@ An instance of the client can be created using `New()`.
 package main
 
 import (
-	"github.com/NdoleStudio/go-http-client"
+    "github.com/NdoleStudio/ynote-go"
 )
 
-func main()  {
-	statusClient := client.New(client.WithDelay(200))
+func main() {
+    client := ynote.New(
+        ynote.WithUsername(""),
+        ynote.WithPassword(""),
+    )
 }
 ```
 
@@ -54,24 +60,10 @@ func main()  {
 All API calls return an `error` as the last return object. All successful calls will return a `nil` error.
 
 ```go
-status, response, err := statusClient.Status.Ok(context.Background())
+transaction, response, err := client.Refund.Status(context.Background(), "")
 if err != nil {
     //handle error
 }
-```
-
-### Status Codes
-
-#### `GET /200`: OK
-
-```go
-status, response, err := statusClient.Status.Ok(context.Background())
-
-if err != nil {
-    log.Fatal(err)
-}
-
-log.Println(status.Description) // OK
 ```
 
 ## Testing
