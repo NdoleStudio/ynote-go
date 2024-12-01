@@ -6,8 +6,8 @@ type clientConfig struct {
 	httpClient     *http.Client
 	customerKey    string
 	customerSecret string
-	username       string
-	password       string
+	clientID       string
+	clientSecret   string
 	tokenURL       string
 	apiURL         string
 }

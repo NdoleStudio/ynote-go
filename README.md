@@ -49,8 +49,8 @@ import (
 
 func main() {
     client := ynote.New(
-        ynote.WithUsername(""),
-        ynote.WithPassword(""),
+        ynote.WithClientID(""),
+        ynote.WithClientSecret(""),
     )
 }
 ```
@@ -60,7 +60,7 @@ func main() {
 All API calls return an `error` as the last return object. All successful calls will return a `nil` error.
 
 ```go
-transaction, response, err := client.Refund.Status(context.Background(), "")
+transaction, response, err := client.Refund.Status(context.Background(), "messageID")
 if err != nil {
     //handle error
 }

@@ -26,8 +26,8 @@ type Client struct {
 
 	customerKey    string
 	customerSecret string
-	username       string
-	password       string
+	clientID       string
+	clientSecret   string
 	tokenURL       string
 	apiURL         string
 
@@ -50,8 +50,8 @@ func New(options ...Option) *Client {
 		httpClient:     config.httpClient,
 		tokenURL:       config.tokenURL,
 		apiURL:         config.apiURL,
-		username:       config.username,
-		password:       config.password,
+		clientID:       config.clientID,
+		clientSecret:   config.clientSecret,
 		customerKey:    config.customerKey,
 		customerSecret: config.customerSecret,
 		mutex:          sync.Mutex{},
@@ -72,7 +72,7 @@ func (client *Client) AccessToken(ctx context.Context) (*AccessTokenResponse, *R
 		return nil, nil, err
 	}
 
-	request.SetBasicAuth(client.username, client.password)
+	request.SetBasicAuth(client.clientID, client.clientSecret)
 	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	request.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
 

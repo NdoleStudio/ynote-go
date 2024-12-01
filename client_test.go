@@ -2,16 +2,17 @@ package ynote
 
 import (
 	"context"
+	"net/http"
+	"testing"
+
 	"github.com/NdoleStudio/ynote-go/internal/helpers"
 	"github.com/NdoleStudio/ynote-go/internal/stubs"
 	"github.com/stretchr/testify/assert"
-	"net/http"
-	"testing"
 )
 
 const (
-	testUsername = "username-2"
-	testPassword = "password-3"
+	testClientID     = "test-clientID"
+	testClientSecret = "test-clientSecret"
 )
 
 func TestClient_Token(t *testing.T) {
@@ -24,8 +25,8 @@ func TestClient_Token(t *testing.T) {
 
 	client := New(
 		WithTokenURL(server.URL),
-		WithUsername(testUsername),
-		WithPassword(testPassword),
+		WithClientID(testClientID),
+		WithClientSecret(testClientSecret),
 	)
 
 	// Act
@@ -40,8 +41,8 @@ func TestClient_Token(t *testing.T) {
 	actualUsername, actualPassword, ok := request.BasicAuth()
 	assert.True(t, ok)
 
-	assert.Equal(t, testUsername, actualUsername)
-	assert.Equal(t, testPassword, actualPassword)
+	assert.Equal(t, testClientID, actualUsername)
+	assert.Equal(t, testClientSecret, actualPassword)
 	assert.Equal(t, "/oauth2/token", request.URL.Path)
 	assert.Equal(t, "application/x-www-form-urlencoded", request.Header.Get("Content-Type"))
 

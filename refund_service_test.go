@@ -2,11 +2,12 @@ package ynote
 
 import (
 	"context"
+	"net/http"
+	"testing"
+
 	"github.com/NdoleStudio/ynote-go/internal/helpers"
 	"github.com/NdoleStudio/ynote-go/internal/stubs"
 	"github.com/stretchr/testify/assert"
-	"net/http"
-	"testing"
 )
 
 func TestRefundService_Refund(t *testing.T) {
@@ -19,9 +20,9 @@ func TestRefundService_Refund(t *testing.T) {
 	server := helpers.MakeRequestCapturingTestServer([]int{http.StatusOK, http.StatusOK}, responses, &requests)
 	client := New(
 		WithTokenURL(server.URL),
-		WithApiURL(server.URL),
-		WithUsername(testUsername),
-		WithPassword(testPassword),
+		WithAPIURL(server.URL),
+		WithClientID(testClientID),
+		WithClientSecret(testClientSecret),
 	)
 
 	payload := &RefundParams{
@@ -50,7 +51,7 @@ func TestRefundService_Refund(t *testing.T) {
 
 	assert.Equal(t, http.StatusOK, response.HTTPResponse.StatusCode)
 
-	//Teardown
+	// Teardown
 	server.Close()
 }
 
@@ -64,9 +65,9 @@ func TestRefundService_RefundWithInvalidClient(t *testing.T) {
 	server := helpers.MakeRequestCapturingTestServer([]int{http.StatusOK, http.StatusBadRequest}, responses, &requests)
 	client := New(
 		WithTokenURL(server.URL),
-		WithApiURL(server.URL),
-		WithUsername(testUsername),
-		WithPassword(testPassword),
+		WithAPIURL(server.URL),
+		WithClientID(testClientID),
+		WithClientSecret(testClientSecret),
 	)
 
 	payload := &RefundParams{
@@ -90,7 +91,7 @@ func TestRefundService_RefundWithInvalidClient(t *testing.T) {
 
 	assert.Equal(t, http.StatusBadRequest, response.HTTPResponse.StatusCode)
 
-	//Teardown
+	// Teardown
 	server.Close()
 }
 

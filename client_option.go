@@ -35,8 +35,8 @@ func WithTokenURL(tokenURL string) Option {
 	})
 }
 
-// WithApiURL set's the api URL for the Y-Note API
-func WithApiURL(apiURL string) Option {
+// WithAPIURL set's the api URL for the Y-Note API
+func WithAPIURL(apiURL string) Option {
 	return clientOptionFunc(func(config *clientConfig) {
 		if apiURL != "" {
 			config.apiURL = strings.TrimRight(apiURL, "/")
@@ -44,17 +44,17 @@ func WithApiURL(apiURL string) Option {
 	})
 }
 
-// WithUsername sets the Y-Note API Username used to fetch the access token
-func WithUsername(username string) Option {
+// WithClientID sets the Y-Note API clientID used to fetch the access token
+func WithClientID(clientID string) Option {
 	return clientOptionFunc(func(config *clientConfig) {
-		config.username = username
+		config.clientID = clientID
 	})
 }
 
-// WithPassword sets the Y-Note API password used to fetch the access token
-func WithPassword(password string) Option {
+// WithClientSecret sets the Y-Note API client secret used to fetch the access token
+func WithClientSecret(clientSecret string) Option {
 	return clientOptionFunc(func(config *clientConfig) {
-		config.password = password
+		config.clientSecret = clientSecret
 	})
 }
 

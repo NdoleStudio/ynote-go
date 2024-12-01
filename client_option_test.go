@@ -71,37 +71,37 @@ func TestWithApiURL(t *testing.T) {
 	})
 }
 
-func TestWithUsername(t *testing.T) {
-	t.Run("username is set successfully", func(t *testing.T) {
+func TestWithClientID(t *testing.T) {
+	t.Run("clientID is set successfully", func(t *testing.T) {
 		// Setup
 		t.Parallel()
 
 		// Arrange
-		username := "username-1"
+		username := "client-id"
 		config := defaultClientConfig()
 
 		// Act
-		WithUsername(username).apply(config)
+		WithClientID(username).apply(config)
 
 		// Assert
-		assert.Equal(t, username, config.username)
+		assert.Equal(t, username, config.clientID)
 	})
 }
 
-func TestWithPassword(t *testing.T) {
-	t.Run("password is set successfully", func(t *testing.T) {
+func TestWithClientSecret(t *testing.T) {
+	t.Run("clientSecret is set successfully", func(t *testing.T) {
 		// Setup
 		t.Parallel()
 
 		// Arrange
-		password := "password-1"
+		password := "client-secret"
 		config := defaultClientConfig()
 
 		// Act
-		WithPassword(password).apply(config)
+		WithClientSecret(password).apply(config)
 
 		// Assert
-		assert.Equal(t, password, config.password)
+		assert.Equal(t, password, config.clientSecret)
 	})
 }
 
