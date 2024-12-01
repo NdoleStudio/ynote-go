@@ -58,9 +58,24 @@ type RefundTransactionStatus struct {
 		CustomerSecret            string `json:"customer_secret"`
 		FinalCustomerName         string `json:"final_customer_name"`
 		FinalCustomerPhone        string `json:"final_customer_phone"`
-		FinalCustomerNameAccuracy string `json:"final_customer_name_accuracy"`
+		FinalCustomerNameAccuracy any    `json:"final_customer_name_accuracy"`
 	} `json:"parameters"`
 	CreatedAt  string `json:"CreateAt"`
 	MessageID  string `json:"MessageId"`
 	RefundStep string `json:"RefundStep"`
+}
+
+// IsPending checks if the refund transaction is pending
+func (status *RefundTransactionStatus) IsPending() bool {
+	return status.Result.Data.Status == "" || status.Result.Data.Status == "PENDING" || status.Result.Data.Status == "INITIATED"
+}
+
+// IsSuccessful checks if the refund transaction is successful
+func (status *RefundTransactionStatus) IsSuccessful() bool {
+	return status.Result.Data.Status == "SUCCESSFULL" || status.Result.Data.Status == "SUCCESSFUL"
+}
+
+// IsFailed checks if the refund transaction is failed
+func (status *RefundTransactionStatus) IsFailed() bool {
+	return status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED"
 }

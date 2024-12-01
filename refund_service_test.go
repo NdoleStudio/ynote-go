@@ -118,6 +118,9 @@ func TestRefundService_Status(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, response.HTTPResponse.StatusCode)
 	assert.Equal(t, "CI24120168FBF65A909F588B4480", transaction.Result.Data.PayToken)
+	assert.True(t, transaction.IsSuccessful())
+	assert.False(t, transaction.IsFailed())
+	assert.False(t, transaction.IsPending())
 
 	// Teardown
 	server.Close()
