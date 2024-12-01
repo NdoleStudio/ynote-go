@@ -28,7 +28,7 @@ func TestRefundService_Refund(t *testing.T) {
 	payload := &RefundParams{
 		ChannelUserMsisdn:         "699999999",
 		Pin:                       "0000",
-		Webhook:                   "https://api.nyangapay.com/v1/y-note",
+		Webhook:                   "https://example.com/webhook",
 		Amount:                    "100",
 		FinalCustomerPhone:        "699999999",
 		FinalCustomerName:         "",

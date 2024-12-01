@@ -39,7 +39,7 @@ func TestWithHTTPClient(t *testing.T) {
 	})
 }
 
-func TestWithApiURL(t *testing.T) {
+func TestWithAPIURL(t *testing.T) {
 	t.Run("apiURL is set successfully", func(t *testing.T) {
 		// Setup
 		t.Parallel()
@@ -49,7 +49,7 @@ func TestWithApiURL(t *testing.T) {
 		config := defaultClientConfig()
 
 		// Act
-		WithApiURL(apiURL).apply(config)
+		WithAPIURL(apiURL).apply(config)
 
 		// Assert
 		assert.Equal(t, apiURL, config.apiURL)
@@ -64,7 +64,7 @@ func TestWithApiURL(t *testing.T) {
 		config := defaultClientConfig()
 
 		// Act
-		WithApiURL(apiURL).apply(config)
+		WithAPIURL(apiURL).apply(config)
 
 		// Assert
 		assert.Equal(t, "https://example.com", config.apiURL)
