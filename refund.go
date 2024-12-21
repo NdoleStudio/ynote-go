@@ -80,5 +80,5 @@ func (status *RefundTransactionStatus) IsSuccessful() bool {
 
 // IsFailed checks if the refund transaction is failed
 func (status *RefundTransactionStatus) IsFailed() bool {
-	return (status.Status != nil && *status.Status == "FAILED") || (status.ErrorCode != nil && *status.ErrorCode == 5019) || (status.Result != nil && (status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED"))
+	return (status.Status != nil && (*status.Status == "FAILED" || *status.ErrorCode == 5019)) || (status.Result != nil && (status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED"))
 }
