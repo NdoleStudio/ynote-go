@@ -34,7 +34,10 @@ type RefundTransaction struct {
 
 // RefundTransactionStatus is the response from a refund transaction status
 type RefundTransactionStatus struct {
-	Result struct {
+	Status       *string `json:"status"`
+	ErrorCode    *int    `json:"ErrorCode"`
+	ErrorMessage *string `json:"ErrorMessage"`
+	Result       *struct {
 		Message string `json:"message"`
 		Data    struct {
 			CreatedAt         string `json:"createtime"`
@@ -67,15 +70,15 @@ type RefundTransactionStatus struct {
 
 // IsPending checks if the refund transaction is pending
 func (status *RefundTransactionStatus) IsPending() bool {
-	return status.Result.Data.Status == "" || status.Result.Data.Status == "PENDING" || status.Result.Data.Status == "INITIATED"
+	return status.Status == nil && (status.Result == nil || status.Result.Data.Status == "" || status.Result.Data.Status == "PENDING" || status.Result.Data.Status == "INITIATED")
 }
 
 // IsSuccessful checks if the refund transaction is successful
 func (status *RefundTransactionStatus) IsSuccessful() bool {
-	return status.Result.Data.Status == "SUCCESSFULL" || status.Result.Data.Status == "SUCCESSFUL"
+	return status.Result != nil && (status.Result.Data.Status == "SUCCESSFULL" || status.Result.Data.Status == "SUCCESSFUL")
 }
 
 // IsFailed checks if the refund transaction is failed
 func (status *RefundTransactionStatus) IsFailed() bool {
-	return status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED"
+	return (status.Status != nil && *status.Status == "FAILED") || (status.ErrorCode != nil && *status.ErrorCode == 5019) || (status.Result != nil && (status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED"))
 }

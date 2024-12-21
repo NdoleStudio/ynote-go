@@ -50,7 +50,7 @@ func RefundStatusResponse() []byte {
     },
     "parameters": {
         "amount": "98",
-        "xauth": "WU5PVEVIRUFEOllOT1RFSEVBRDIwMjA=",
+        "xauth": "WU5PVEVIRUFExxxxxxxxxxx",
         "channel_user_msisdn": "69xxxxxx",
         "customer_key": "2fBAAq_xxxxxxx",
         "customer_secret": "34nFkKxxxxxx",
@@ -61,6 +61,30 @@ func RefundStatusResponse() []byte {
     "CreateAt": "12-01-2024 12:43:00",
     "MessageId": "993764f9-6b1f-41bd-a7ca-97b8b2167ed7",
     "RefundStep": "2"
+}
+`)
+}
+
+// RefundStatusResponseWithFailure represents a refund status response with a failure
+func RefundStatusResponseWithFailure() []byte {
+	return []byte(`
+{
+   "ErrorCode":5019,
+   "body":"Exception on getToken",
+   "ErrorMessage":"[Errno 97] Address family not supported by protocol",
+   "status":"FAILED",
+   "parameters":{
+      "amount":"10182",
+      "xauth":"WU5PVEVIRUFEOxxxxxxxxxxxxxx",
+      "channel_user_msisdn":"693xxxxxx",
+      "customer_key":"2fBAAq_xxxxxxxxxxxxxxxxxxxx",
+      "customer_secret":"34nFxxxxxxxxxxxxxxxxxxxxx",
+      "final_customer_name":"Arnold",
+      "final_customer_phone":"693xxxxxx"
+   },
+   "CreateAt":"12-20-2024 12:14:38",
+   "MessageId":"90be9142-4216-4113-bdc4-d1d11ede2460",
+   "RefundStep":"1"
 }
 `)
 }
