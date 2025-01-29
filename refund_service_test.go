@@ -181,3 +181,32 @@ func TestRefundService_StatusWithError(t *testing.T) {
 	// Teardown
 	server.Close()
 }
+
+func TestRefundService_StatusWithMaxTransactionExceeded(t *testing.T) {
+	// Setup
+	t.Parallel()
+
+	// Arrange
+	requests := make([]http.Request, 0)
+	responses := [][]byte{stubs.TokenResponse(), stubs.RefundStatusWithMaxRetryExceeded()}
+	server := helpers.MakeRequestCapturingTestServer([]int{http.StatusOK, http.StatusOK}, responses, &requests)
+	client := New(
+		WithTokenURL(server.URL),
+		WithAPIURL(server.URL),
+		WithClientID(testClientID),
+		WithClientSecret(testClientSecret),
+	)
+
+	// Act
+	transaction, response, err := client.Refund.Status(context.Background(), "")
+
+	// Assert
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, response.HTTPResponse.StatusCode)
+	assert.True(t, transaction.IsFailed())
+	assert.False(t, transaction.IsSuccessful())
+	assert.False(t, transaction.IsPending())
+
+	// Teardown
+	server.Close()
+}

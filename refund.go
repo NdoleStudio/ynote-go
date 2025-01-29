@@ -42,7 +42,7 @@ type RefundTransactionStatus struct {
 		Data    struct {
 			CreatedAt         string `json:"createtime"`
 			SubscriberMsisdn  string `json:"subscriberMsisdn"`
-			Amount            int    `json:"amount"`
+			Amount            any    `json:"amount"`
 			PayToken          string `json:"payToken"`
 			TransactionID     string `json:"txnid"`
 			TransactionMode   string `json:"txnmode"`

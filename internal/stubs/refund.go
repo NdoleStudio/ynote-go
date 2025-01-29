@@ -88,3 +88,30 @@ func RefundStatusResponseWithFailure() []byte {
 }
 `)
 }
+
+// RefundStatusWithMaxRetryExceeded represents a refund status response with a max retry exceeded
+func RefundStatusWithMaxRetryExceeded() []byte {
+	return []byte(`
+{
+    "CreateAt": "01-29-2025 20:20:08",
+    "RefundStep": "1",
+    "result": {
+        "data": {
+            "amount": "",
+            "channelUserMsisdn": "",
+            "createtime": "",
+            "description": "Max retry exceeded",
+            "orderId": "",
+            "payToken": "",
+            "status": "FAILED",
+            "subscriberMsisdn": "",
+            "txnid": "",
+            "txnmessage": "Max retry exceeded",
+            "txnmode": "",
+            "txnstatus": ""
+        },
+        "message": "Transaction retrieved successfully"
+    }
+}
+`)
+}
