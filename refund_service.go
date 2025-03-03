@@ -62,6 +62,7 @@ func (service *RefundService) Refund(ctx context.Context, params *RefundParams) 
 		"final_customer_name":          params.FinalCustomerName,
 		"refund_method":                params.RefundMethod,
 		"fees_included":                feesIncluded,
+		"maximum_retries":              params.MaximumRetries,
 		"final_customer_name_accuracy": params.FinalCustomerNameAccuracy,
 	}
 

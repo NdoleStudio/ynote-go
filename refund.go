@@ -10,6 +10,7 @@ type RefundParams struct {
 	FinalCustomerName         string `json:"final_customer_name"`
 	RefundMethod              string `json:"refund_method"`
 	FeesIncluded              bool   `json:"fees_included"`
+	MaximumRetries            string `json:"maximum_retries"`
 	FinalCustomerNameAccuracy string `json:"final_customer_name_accuracy"`
 }
 
