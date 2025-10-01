@@ -39,7 +39,8 @@ type RefundTransactionStatus struct {
 	ErrorCode    *int    `json:"ErrorCode"`
 	ErrorMessage *string `json:"ErrorMessage"`
 	Result       *struct {
-		Message string `json:"message"`
+		Message string  `json:"message"`
+		Status  *string `json:"status"`
 		Data    struct {
 			CreatedAt         string `json:"createtime"`
 			SubscriberMsisdn  string `json:"subscriberMsisdn"`
@@ -81,5 +82,5 @@ func (status *RefundTransactionStatus) IsSuccessful() bool {
 
 // IsFailed checks if the refund transaction is failed
 func (status *RefundTransactionStatus) IsFailed() bool {
-	return (status.Status != nil && *status.Status == "FAILED") || (status.ErrorCode != nil && *status.ErrorCode == 5019) || (status.Result != nil && (status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED"))
+	return (status.Status != nil && *status.Status == "FAILED") || (status.ErrorCode != nil && *status.ErrorCode == 5019) || (status.Result != nil && (status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED") || (status.Result.Status != nil && *status.Result.Status == "FAILED"))
 }
