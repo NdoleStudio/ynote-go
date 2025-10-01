@@ -72,7 +72,8 @@ type RefundTransactionStatus struct {
 
 // IsPending checks if the refund transaction is pending
 func (status *RefundTransactionStatus) IsPending() bool {
-	return status.Status == nil && (status.Result == nil || status.Result.Data.Status == "" || status.Result.Data.Status == "PENDING" || status.Result.Data.Status == "INITIATED")
+	return status.Status == nil &&
+		(status.Result == nil || status.Result.Data.Status == "" || status.Result.Data.Status == "PENDING" || status.Result.Data.Status == "INITIATED")
 }
 
 // IsSuccessful checks if the refund transaction is successful
@@ -82,5 +83,8 @@ func (status *RefundTransactionStatus) IsSuccessful() bool {
 
 // IsFailed checks if the refund transaction is failed
 func (status *RefundTransactionStatus) IsFailed() bool {
-	return (status.Status != nil && *status.Status == "FAILED") || (status.ErrorCode != nil && *status.ErrorCode == 5019) || (status.Result != nil && (status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED") || (status.Result.Status != nil && *status.Result.Status == "FAILED"))
+	return (status.Status != nil && *status.Status == "FAILED") ||
+		(status.ErrorCode != nil && *status.ErrorCode == 5019) ||
+		(status.Result != nil && (status.Result.Data.Status == "FAILED" || status.Result.Data.Status == "EXPIRED")) ||
+		(status.Result.Status != nil && *status.Result.Status == "FAILED")
 }
