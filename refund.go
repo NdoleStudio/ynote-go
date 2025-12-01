@@ -2,16 +2,17 @@ package ynote
 
 // RefundParams are the parameters for executing a refund transaction
 type RefundParams struct {
-	ChannelUserMsisdn         string `json:"channelUserMsisdn"`
-	Pin                       string `json:"pin"`
-	Webhook                   string `json:"webhook"`
-	Amount                    string `json:"amount"`
-	FinalCustomerPhone        string `json:"final_customer_phone"`
-	FinalCustomerName         string `json:"final_customer_name"`
-	RefundMethod              string `json:"refund_method"`
-	FeesIncluded              bool   `json:"fees_included"`
-	MaximumRetries            string `json:"maximum_retries"`
-	FinalCustomerNameAccuracy string `json:"final_customer_name_accuracy"`
+	ChannelUserMsisdn         string  `json:"channelUserMsisdn"`
+	Pin                       string  `json:"pin"`
+	Webhook                   string  `json:"webhook"`
+	Amount                    string  `json:"amount"`
+	FinalCustomerPhone        string  `json:"final_customer_phone"`
+	FinalCustomerName         string  `json:"final_customer_name"`
+	RefundMethod              string  `json:"refund_method"`
+	FeesIncluded              bool    `json:"fees_included"`
+	MaximumRetries            string  `json:"maximum_retries"`
+	FinalCustomerNameAccuracy string  `json:"final_customer_name_accuracy"`
+	DebitPolicy               *string `json:"debit_policy,omitempty"`
 }
 
 // RefundTransaction is the response from a refund transaction

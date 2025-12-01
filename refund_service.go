@@ -66,6 +66,10 @@ func (service *RefundService) Refund(ctx context.Context, params *RefundParams) 
 		"final_customer_name_accuracy": params.FinalCustomerNameAccuracy,
 	}
 
+	if params.DebitPolicy != nil {
+		payload["debit_policy"] = params.DebitPolicy
+	}
+
 	request, err := service.client.newRequest(ctx, http.MethodPost, "/prod/refund", payload)
 	if err != nil {
 		return nil, nil, err
